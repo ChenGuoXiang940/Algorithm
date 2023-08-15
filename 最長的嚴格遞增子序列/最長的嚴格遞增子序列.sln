@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "最長的嚴格遞增子序列", "最長的嚴格遞增子序列.csproj", "{C67F48AE-CFF8-4C42-BE94-AA7F5DBE7CCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C67F48AE-CFF8-4C42-BE94-AA7F5DBE7CCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C67F48AE-CFF8-4C42-BE94-AA7F5DBE7CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C67F48AE-CFF8-4C42-BE94-AA7F5DBE7CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C67F48AE-CFF8-4C42-BE94-AA7F5DBE7CCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FFFEE860-2CBD-4714-98BC-188EF16FEBAC}
+	EndGlobalSection
+EndGlobal
