@@ -32,6 +32,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,11 +78,33 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label1.Location = new System.Drawing.Point(573, 302);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 24);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "時間:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label2.Location = new System.Drawing.Point(573, 342);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(160, 24);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "最短路徑長度:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(836, 537);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
@@ -89,6 +113,7 @@
             this.Text = "TSP退火蟻";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -98,6 +123,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

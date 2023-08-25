@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.Reflection.Emit;
+
 namespace 旅遊商問題TSP
 {
     public partial class Form1 : Form
@@ -28,6 +31,8 @@ namespace 旅遊商問題TSP
         public static Func<Point, Point, double> GetDistance = (Point p1, Point p2) => Math.Abs(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
         private void button1_Click(object sender, EventArgs e)
         {
+            label1.Text = "時間:";
+            label2.Text = "最短路徑長度:";
             col.Clear();
             for(int i = 0; i < 25; i++)
             {
@@ -50,6 +55,8 @@ namespace 旅遊商問題TSP
         public static int[] seq_f;
         private void button2_Click(object sender, EventArgs e)
         {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
             seq = new int[25];
             seq_f = new int[25];
             double tempterature = 10000;//初始溫度
@@ -109,6 +116,9 @@ namespace 旅遊商問題TSP
                 g.DrawString($"{i}", font, Brushes.Black, col[seq[i]]);
             }
             pictureBox1.Image = bitmap;
+            sw.Stop();
+            label1.Text = $"時間:{Math.Round(sw.Elapsed.TotalSeconds, 3)}";
+            label2.Text = $"最短路徑長度:{result}";
         }
 
         private void button3_Click(object sender, EventArgs e)
