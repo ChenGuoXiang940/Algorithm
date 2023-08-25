@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             //時間複雜度是 O(log N)
-            long N = long.Parse(Console.ReadLine());
+            long N = long.Parse(Console.ReadLine() + "");
             long powerOfTwo = 1;
             long totalBits = 0;
             while (powerOfTwo <= N)

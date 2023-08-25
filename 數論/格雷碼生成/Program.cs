@@ -6,7 +6,7 @@
         static void Main()
         {
             Console.Write("請輸入格雷碼位元: ");
-            int n = int.Parse(Console.ReadLine());
+            int n = int.Parse(Console.ReadLine() + "");
             if (n <= 0)
             {
                 Console.WriteLine("請輸入正整數.");

@@ -6,7 +6,6 @@ namespace 二元樹資訊
     {
         /*有序字典，對輸入的int直接做排序，相當於C++的priority_queue*/
         public static SortedDictionary<int, BT> dict = new SortedDictionary<int, BT>();
-        /*後序走訪*/
         public static string str = "";
         public static void post(int val)
         {
@@ -15,7 +14,7 @@ namespace 二元樹資訊
             post(dict[val].right);
             str += val.ToString() + ",";
         }
-        /*如果值不存在dict就建立新的BT加入*/
+        /*如果值不存在，就建立新的BT加入*/
         public static void checkandcreate(int val)
         {
             if (!dict.ContainsKey(val)) dict[val] = new BT();
@@ -43,16 +42,8 @@ namespace 二元樹資訊
                 }
             }
             post(0);
-            Console.WriteLine(str.TrimEnd(','));
+            Console.WriteLine("後序走訪:" + str.TrimEnd(','));
             Console.ReadKey();
-            /*
-0 3 -1
-1 -1 5
-2 -1 -1
-3 4 -1
-4 2 1
-5 -1 -1
-             */
         }
     }
     class BT
@@ -68,3 +59,11 @@ namespace 二元樹資訊
         }
     }
 }
+/*
+0 3 -1
+1 -1 5
+2 -1 -1
+3 4 -1
+4 2 1
+5 -1 -1
+ */

@@ -13,17 +13,8 @@ namespace 最小堆積樹資訊
              * 最小堆積樹Heap(優先級佇列Priority Queue):
              * 建立目的:用於結構性質而不是排序性質(走訪沒有意義)
              */
-            //
             MinHeap heap = new MinHeap();
             int[] num = { 1, 6, 13, 16, 14, 8, 4, 5, 10 };
-//               1
-//            /    \
-//           5      4
-//          /  \    / \
-//         6   14  13  8
-//        / \ 
-//      16  10
-
             foreach (int item in num)
             {
                 heap.insert(item);
@@ -69,3 +60,10 @@ namespace 最小堆積樹資訊
         }
     }
 }
+//               1
+//            /    \
+//           5      4
+//          /  \    / \
+//         6   14  13  8
+//        / \ 
+//      16  10

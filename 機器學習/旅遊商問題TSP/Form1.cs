@@ -108,7 +108,7 @@ namespace 旅遊商問題TSP
                 result = Data.count_energy(ref seq);
             }
             reset();
-            g.DrawString("0", font, Brushes.Black, col[seq[0]]);
+            g.DrawString("25", font, Brushes.Black, col[seq[0]]);
             g.DrawLine(pen, col[seq[0]], col[seq[24]]);
             for (int i = 1; i < 25; i++)
             {

@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            int n = int.Parse(Console.ReadLine());
+            int n = int.Parse(Console.ReadLine() + "");
             string text = n.ToString();
             int times = 0;
             while (n > 0)

@@ -32,7 +32,7 @@
     {
         private Node? node;
         private string? s;
-        //此處遞迴可以建立搜尋二元樹
+        //此處遞迴可以建立二元搜尋樹
         private Node? insertrec(Node? root,int val)
         {
             if (root == null) return new Node(val);
