@@ -6,9 +6,8 @@
         {
             /*輸入不重複的數可建立二元搜尋樹(Binary Search Tree，BST）*/
             int[] num = { 7, 4, 12, 1, 5, 8, 15 };
-            int[] num1 = { 9, 6, 12, 2, 8, 11, 15, 1, 3, 7 };
             BST bst = new BST();
-            foreach(int item in num1)
+            foreach(int item in num)
             {
                 bst.insert(item);
             }

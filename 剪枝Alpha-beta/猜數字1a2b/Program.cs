@@ -1,30 +1,12 @@
 ﻿
 class Program
 {
-    public static Random rnd = new Random();
-    public static bool check()
-    {
-        while(true)
-        {
-            Console.Write("是否要繼續?(y:是;n:否):");
-            ConsoleKeyInfo info = Console.ReadKey();
-            switch(info.Key)
-            {
-                case ConsoleKey.Y:
-                    return true;
-                case ConsoleKey.N:
-                    return false;
-                default:
-                    continue;
-            }
-        }
-    }
     /*
-     * 猜數字 1a2b
      * 先列舉出所有的解(數字不能重複 最低 0123 到最高 9999 )
      * 以同樣的 NaNb 慢慢所縮小範圍直到 4a 結束
      * 鍵盤觸發事件判斷是否要繼續
      */
+    public static Random rnd = new Random();
     static void Main(string[] args)
     {
         int answer;
@@ -104,5 +86,22 @@ class Program
             }
         }
         return newPossibleGuesses;
+    }
+    public static bool check()
+    {
+        while (true)
+        {
+            Console.Write("是否要繼續?(y:是;n:否):");
+            ConsoleKeyInfo info = Console.ReadKey();
+            switch (info.Key)
+            {
+                case ConsoleKey.Y:
+                    return true;
+                case ConsoleKey.N:
+                    return false;
+                default:
+                    continue;
+            }
+        }
     }
 }
