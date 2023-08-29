@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            //時間複雜度 O(n * m)
+            //時間複雜度 O(s1.Length * s2.Length)
             string s1 = "yaedfhrz";
             string s2 = "xabcdghxy";
             int[,] dp = new int[s1.Length + 1, s2.Length + 1];

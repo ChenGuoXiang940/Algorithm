@@ -4,7 +4,10 @@
     {
         static void Main(string[] args)
         {
-            //時間複雜度 O(n + m)
+            //時間複雜度 O(s1.Length + s2.Length)
+            //dp[i-1,j-1]替換
+            //dp[i,j-1]插入
+            //dp[i-1,j]刪除
             string s1 = "intention";
             string s2 = "execution";
             int[,] dp = new int[s1.Length + 1, s2.Length + 1];
@@ -28,7 +31,9 @@
                     {
                         dp[i, j] = Math.Min(dp[i - 1, j - 1], Math.Min(dp[i, j - 1], dp[i - 1, j])) + 1;
                     }
+                    Console.Write($"{dp[i, j]} ");
                 }
+                Console.Write("\r\n");
             }
             Console.WriteLine(dp[s1.Length, s2.Length]);
             Console.ReadKey();

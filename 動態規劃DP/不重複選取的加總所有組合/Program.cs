@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            //時間複雜度  O(n * sum)
+            //時間複雜度 O(num.Length * sum)
             int[] num = { 4, 2, 2, 5 };
             int sum = num.Sum();
             int[] dp = new int[sum + 1];
@@ -17,7 +17,7 @@
                 }
             }
             int result = 0;
-            // 列印所有可能的總和
+            //列印所有可能的總和
             for (int i = 1; i <= sum; i++)
             {
                 if (dp[i] > 0)
