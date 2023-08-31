@@ -1,69 +1,60 @@
-﻿using System.Data;
-
+﻿
 namespace 二元樹資訊
 {
     internal class Program
     {
-        /*有序字典，對輸入的int直接做排序，相當於C++的priority_queue*/
+        /*有序字典，對輸入的值直接做排序，相當於 C++ 的 priority_queue*/
         public static SortedDictionary<int, BT> dict = new SortedDictionary<int, BT>();
         public static string str = "";
-        public static void post(int val)
-        {
-            if (val == -1) return;
-            post(dict[val].left);
-            post(dict[val].right);
-            str += val.ToString() + ",";
-        }
-        /*如果值不存在，就建立新的BT加入*/
-        public static void checkandcreate(int val)
-        {
-            if (!dict.ContainsKey(val)) dict[val] = new BT();
-        }
         static void Main(string[] args)
         {
-            /*知道左節點值、右節點值、父節點值，可以建立二元樹*/
-            string s;
-            while (!string.IsNullOrEmpty(s = Console.ReadLine() + ""))
+            /*知道父節點值、左節點值、右節點值，可以建立二元樹*/
+            int[,] num = new int[6, 3] { { 0, 3, -1 }, { 1, -1, 5 }, { 2, -1, -1 }, { 3, 4, -1 }, { 4, 2, 1 }, { 5, -1, -1 } };
+            for(int i = 0; i < num.GetLength(0); i++)
             {
-                int[] arr = s.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
-                int root = arr[0], left = arr[1], right = arr[2];
-                checkandcreate(root);
+                int root = num[i, 0], left = num[i, 1], right = num[i, 2];
+                CheckandCreate(root);
                 dict[root].left = left;
                 dict[root].right = right;
                 if (left != -1)
                 {
-                    checkandcreate(left);
+                    CheckandCreate(left);
                     dict[left].parent = root;
                 }
                 if (right != -1)
                 {
-                    checkandcreate(right);
+                    CheckandCreate(right);
                     dict[right].parent = root;
                 }
             }
-            post(0);
-            Console.WriteLine("後序走訪:" + str.TrimEnd(','));
+            Console.WriteLine("後序走訪:" + GetPost());
             Console.ReadKey();
+        }
+        /*如果值不存在，就建立新的加入*/
+        public static void CheckandCreate(int val)
+        {
+            if (!dict.ContainsKey(val)) dict[val] = new BT();
+        }
+        public static void Post(int val)
+        {
+            if (val == -1) return;
+            Post(dict[val].left);
+            Post(dict[val].right);
+            str += val.ToString() + ",";
+        }
+        public static string GetPost()
+        {
+            str = "";
+            Post(0);//假設根為 0
+            return str.TrimEnd(',');
         }
     }
     class BT
     {
-        public int left { get; set; }  //可讀寫屬性，用於儲存左節點
-        public int right { get; set; } //可讀寫屬性，用於儲存右節點
-        public int parent { get; set; }//可讀寫屬性，用於儲存父節點
+        public int left, right, parent;
         public BT()
         {
-            this.left = -1;  //初始化左節點
-            this.right = -1; //初始化右節點
-            this.parent = -1;//初始化父節點
+            this.left = this.right = this.parent = -1;
         }
     }
 }
-/*
-0 3 -1
-1 -1 5
-2 -1 -1
-3 4 -1
-4 2 1
-5 -1 -1
- */
