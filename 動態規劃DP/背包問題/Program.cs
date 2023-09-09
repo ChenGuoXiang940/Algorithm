@@ -12,7 +12,7 @@
             //遍歷每個物品以及每個可能的背包容量
             for (int i = 1; i <= len; i++)
             {
-                for(int weight = 1; weight <= capacity; weight++)
+                for (int weight = 1; weight <= capacity; weight++)
                 {
                     dp[i, weight] = dp[i - 1, weight];
                     //如果當前可以放入背包，當前狀態替換為價值較高的

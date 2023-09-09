@@ -15,7 +15,7 @@
             int N = (int)Math.Pow(2, n);
             for(int i = 0; i < N; i++)
             {
-                Console.WriteLine($"{i} : " + Convert.ToString(i ^ (i >> 2), 2).PadLeft(n, '0'));
+                Console.WriteLine($"{i} : " + Convert.ToString(i ^ (i >> 1), 2).PadLeft(n, '0'));
             }
             Console.ReadKey();
         }

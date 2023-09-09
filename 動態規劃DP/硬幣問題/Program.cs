@@ -14,12 +14,14 @@
             //遍歷每個硬幣以及每個可能的硬幣組合
             foreach (int coin in coins)
             {
-                for (int i = coin; i <= amount; i++)
+                //for (int i = amount; i >=coin;i--) 每個數只能選一次時
+                for (int i = coin; i <= amount; i++) //每個數都能重複選取
                 {
                     dp[i] += dp[i - coin];
                 }
             }
             Console.WriteLine(dp[amount]);
+            //10 的組合: 1+1+...+1、1+...+1+5、5+5、10
             Console.ReadKey();
         }
     }
