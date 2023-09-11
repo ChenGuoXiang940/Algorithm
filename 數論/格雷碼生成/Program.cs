@@ -2,7 +2,6 @@
 {
     internal class Program
     {
-        
         static void Main()
         {
             Console.Write("請輸入格雷碼位元: ");
