@@ -12,7 +12,7 @@
             //遍歷每個物品以及每個可能的背包容量
             for (int i = 1; i <= len; i++)
             {
-                for (int weight = 1; weight <= capacity; weight++)
+                for (int weight = 1; weight <= capacity; weight++)//重量範圍小於背包容量
                 {
                     dp[i, weight] = dp[i - 1, weight];
                     //如果當前可以放入背包，當前狀態替換為價值較高的
@@ -20,6 +20,7 @@
                     {
                         dp[i, weight] = Math.Max(dp[i, weight], dp[i - 1, weight - weights[i - 1]] + values[i - 1]);
                     }
+                    Console.WriteLine($"i={i,2} value={values[i-1],2} 重量={weight,3} 選取較高價值={dp[i, weight],3}");
                 }
             }
             return dp[len, capacity];

@@ -46,9 +46,9 @@ namespace 最小堆積樹資訊
         private void Post(int index)
         {
             if (index >= heap.Count) return;
-            s += heap[index].ToString() + ",";
             Post(index * 2 + 1);
             Post(index * 2 + 2);
+            s += heap[index].ToString() + ",";
         }
         public void Insert(int val)
         {
