@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "315Count_of_Smaller_Numbers_After_Self", "315Count_of_Smaller_Numbers_After_Self.csproj", "{433146E9-428E-4B40-81C9-D39D108A2DC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{433146E9-428E-4B40-81C9-D39D108A2DC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{433146E9-428E-4B40-81C9-D39D108A2DC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{433146E9-428E-4B40-81C9-D39D108A2DC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{433146E9-428E-4B40-81C9-D39D108A2DC6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {599543B9-E35C-4A45-B988-88084D94A113}
+	EndGlobalSection
+EndGlobal
