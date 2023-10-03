@@ -13,7 +13,6 @@ namespace _315Count_of_Smaller_Numbers_After_Self
             int mid = (left + right) >> 1;
             build(left, mid);
             build(mid + 1, right);
-            Console.WriteLine(left + "#" + mid + "#" + right);
             merge(left, mid, right);
         }
         private void merge(int left,int mid,int right)
@@ -39,7 +38,6 @@ namespace _315Count_of_Smaller_Numbers_After_Self
                 }
                 k++;
             }
-
             while (i < ls)
             {
                 orgindex[k] = list_left[i];
@@ -47,7 +45,6 @@ namespace _315Count_of_Smaller_Numbers_After_Self
                 i++;
                 k++;
             }
-
             while (j < rs)
             {
                 orgindex[k] = list_right[j];
@@ -72,6 +69,7 @@ namespace _315Count_of_Smaller_Numbers_After_Self
             int[] nums = new int[] { 5, 2, 6, 1 };
             Seg seg = new Seg(nums);
             Console.WriteLine(string.Join(" ", seg.count));
+            // orgindex : 3 1 0 2 表示 nums 位置的，比較值的大小降冪排序
             Console.ReadKey();
         }
     }

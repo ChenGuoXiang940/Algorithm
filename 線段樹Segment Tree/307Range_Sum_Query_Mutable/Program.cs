@@ -22,13 +22,14 @@ namespace _307Range_Sum_Query_Mutable
         {
             if (left == right)
             {
-                seg[id] = val;
+                seg[id] = val;//將 arr[left] 改 val
                 return;
             }
             int mid = (left + right) / 2;
+            //pos 以 mid 為基準進入左/右半邊(二分剪枝)
             if (pos <= mid) update(id * 2 + 1, left, mid, pos, val);
             else update(id * 2 + 2, mid + 1, right, pos, val);
-            seg[id] = seg[id * 2 + 1] + seg[id * 2 + 2];
+            seg[id] = seg[id * 2 + 1] + seg[id * 2 + 2];//更新seg
         }
         private int query(int id,int left,int right,int query_left,int query_right)
         {
