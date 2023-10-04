@@ -17,14 +17,14 @@
     }
     class Node
     {
-        public int val { get; }         //只可讀屬性，用於儲存節點的值
-        public Node? left { get; set; } //可讀寫屬性，用於儲存左節點(?可能為空)
-        public Node? right { get; set; }//可讀寫屬性，用於儲存右節點(?可能為空)
+        public int val { get; }
+        public Node? left { get; set; }
+        public Node? right { get; set; }
         public Node(int _val, Node? _left = null, Node? _right = null)
         {
-            val = _val;      //初始化節點的值
-            left ??= _left;  //初始化左節點，如果未提供則為空
-            right ??= _right;//初始化右節點，如果未提供則為空
+            val = _val;
+            left ??= _left;
+            right ??= _right;
         }
     }
     class BST
