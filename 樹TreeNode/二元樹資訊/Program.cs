@@ -52,9 +52,6 @@ namespace 二元樹資訊
     class BT
     {
         public int left, right, parent;
-        public BT()
-        {
-            this.left = this.right = this.parent = -1;
-        }
+        public BT() => this.left = this.right = this.parent = -1;
     }
 }

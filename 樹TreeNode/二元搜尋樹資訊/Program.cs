@@ -17,20 +17,14 @@
     }
     class Node
     {
-        public int val { get; }
-        public Node? left { get; set; }
-        public Node? right { get; set; }
-        public Node(int _val, Node? _left = null, Node? _right = null)
-        {
-            val = _val;
-            left ??= _left;
-            right ??= _right;
-        }
+        public int val;
+        public Node? left, right;
+        public Node(int val) => this.val = val;
     }
     class BST
     {
         private Node? node;
-        private string? s;
+        private string s = "";
         //此處遞迴可以建立二元搜尋樹
         private Node? InsertRec(Node? root,int val)
         {
@@ -41,7 +35,7 @@
             else if (val > root.val) root.right = InsertRec(root.right, val);
             return root;
         }
-        //此處可以實現插入資料、中序走訪，也可額外新增其他操作，如:搜尋、刪除等等
+        //此處可以實現插入資料、中序走訪，也可額外新增其他操作，如:搜尋、刪除、交換、計算深度...等等
         private void Infix(Node? root)
         {
             if(root == null) return;

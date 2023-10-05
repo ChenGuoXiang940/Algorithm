@@ -16,13 +16,13 @@
     }
     public class MaxHeap
     {
-        private string? s;
+        private string s = "";
         private List<int> col;
         public MaxHeap() => col = new List<int>();
         private void insertRec(int index)
         {
             if (index == 0) return;
-            int parent = (index - 1) / 2;
+            int parent = (index - 1) >> 1;
             if (col[parent] < col[index])
             {
                 col[parent] ^= col[index];
