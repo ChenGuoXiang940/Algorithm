@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        /*以堆積(heap)建立二元搜尋樹(Binary Search Tree，BST）*/
+        /*以陣列建立二元搜尋樹(Binary Search Tree，BST）*/
         public static int[] heap = new int[0];
         public static string s = "";
         public static void infix(int id)
@@ -44,9 +44,6 @@
     {
         public int val;
         public Node? left, right;
-        public Node(int val)
-        {
-            this.val = val;
-        }
+        public Node(int val) => this.val = val;
     }
 }

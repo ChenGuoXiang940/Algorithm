@@ -10,7 +10,7 @@ namespace 最小堆積樹資訊
              * 二元搜尋樹(BST):
              * 建立目的:二元搜尋樹是用於維護排序性質。
              * 
-             * 最小堆積樹Heap(優先級佇列 Priority Queue):
+             * 堆積樹Heap(優先級佇列 Priority_Queue ):
              * 建立目的:用於結構性質而不是排序性質(走訪沒有意義，範例僅用於展示)
              */
             MinHeap heap = new MinHeap();
@@ -40,6 +40,7 @@ namespace 最小堆積樹資訊
                 heap[parentIndex] ^= heap[index];
                 heap[index] ^= heap[parentIndex];
                 heap[parentIndex] ^= heap[index];
+                //從子節點回溯到父節點
                 InsertRec(parentIndex);
             }
         }

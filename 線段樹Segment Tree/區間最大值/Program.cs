@@ -6,11 +6,7 @@
         private int[] seg, arr;
         private void push(int id,int left,int right)
         {
-            if (left == right)
-            {
-                seg[id] = arr[left];// 節點對應的區間是[id,id]
-                return;
-            }
+            if (left == right) { seg[id] = arr[left]; return; }
             int mid = (left + right) >> 1;
             push(id << 1, left, mid);
             push((id << 1) | 1, mid + 1, right);
