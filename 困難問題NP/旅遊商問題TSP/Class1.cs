@@ -100,7 +100,7 @@ namespace 旅遊商問題TSP
         }
         public static void generate0(ref int[] s)//以上三種交換方式等概率選擇
         {
-            switch (f.rnd.Next(0, 3))
+            switch (rnd.Next(0, 3))
             {
                 case 0:
                     generate1(ref s);

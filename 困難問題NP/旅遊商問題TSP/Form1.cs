@@ -26,9 +26,7 @@ namespace 旅遊商問題TSP
             g.Clear(Color.White);
             pictureBox1.Image = bitmap;
         }
-        public static Random rnd = new Random();
         public static List<Point> col = new List<Point>();
-        public static Func<Point, Point, double> GetDistance = (Point p1, Point p2) => Math.Abs(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
         private void button1_Click(object sender, EventArgs e)
         {
             label1.Text = "時間:";
@@ -36,8 +34,8 @@ namespace 旅遊商問題TSP
             col.Clear();
             for(int i = 0; i < 25; i++)
             {
-                int x = rnd.Next(10, 490);
-                int y = rnd.Next(10, 490);
+                int x = Data.rnd.Next(10, 490);
+                int y = Data.rnd.Next(10, 490);
                 if (!col.Contains(new Point(x, y))) col.Add(new Point(x, y));
             }
             reset();
@@ -51,7 +49,7 @@ namespace 旅遊商問題TSP
             }
             pictureBox1.Image = bitmap;
         }
-        public static int[] seq;  //最短路徑
+        public static int[] seq;
         public static int[] seq_f;
         private void button2_Click(object sender, EventArgs e)
         {
@@ -63,20 +61,24 @@ namespace 旅遊商問題TSP
             double result = 1E9;        //最短路徑長度
             double new_energy = 1, old_energy = 0;
             double[,] distance = new double[25, 25];
+            //建立圖 Dijkstra 演算法
             for (int i = 0; i < 25; i++)
             {
                 for(int j = 0; j < 25; j++)
                 {
-                    distance[i, j] = i == j ? 0 : GetDistance(col[i], col[j]);
+                    //自己到自己不考慮距離(為零)
+                    distance[i, j] = i == j ? 0 : Data.GetDistance(col[i], col[j]);
                 }
             }
             for(int i = 0; i < 25; i++)
             {
+                //紀錄順序
                 seq[i] = seq_f[i] = i;
             }
+            //退火蟻演算法
             while (tempterature > 1E-9 && Math.Abs(new_energy - old_energy) > 1E-9)
             {
-                int iterate = 100;
+                int iterate = 100;//迭帶次數
                 int[] seq_ff = new int[25];
                 while (iterate-- >= 0 && Math.Abs(new_energy - old_energy) > 1E-9)
                 {
