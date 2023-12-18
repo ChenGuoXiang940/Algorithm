@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace 旅遊商問題TSP
     {
         public static Random rnd = new Random();
         public static int rd() => rnd.Next(0, 25);
-        public static Func<Point, Point, double> GetDistance = (Point p1, Point p2) => Math.Abs(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
+        public static Func<Point, Point, double> GetDistance = (Point p1, Point p2) => Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
         public static double count_energy(ref int[] conf)
         {
             double temp = 0;
@@ -19,34 +20,43 @@ namespace 旅遊商問題TSP
             {
                 temp += GetDistance(f.col[conf[i]], f.col[conf[i - 1]]);
             }
-            temp += GetDistance(f.col[conf[0]], f.col[conf[25 - 1]]);
-            return temp;
+            return temp + GetDistance(f.col[conf[0]], f.col[conf[24]]);
         }
-        public static bool metro(double f1, double f2, double t)
+        #region 接受或拒絕新樣本的函數
+        // 函數的輸入參數：
+        // e1: 當前樣本的能量值
+        // e2: 新生成樣本的能量值
+        // t: 溫度參數，控制接受或拒絕的機率
+        public static bool metro(double e1, double e2, double t)
         {
-            if (f2 < f1) return true;
-            double p = Math.Exp(-(f2 - f1) / t);
+            if (e2 < e1) return true;
+            double p = Math.Exp(-(e2 - e1) / t);
             double bignum = 1E9;
-            if (rnd.Next(0, 36768) % bignum < p * bignum) return true;
-            return false;
+            return (rnd.Next(0, 36768) % bignum < p * bignum);
         }
-        public static void generate(ref int[] s)//隨機產生一組新解
+        #endregion
+        #region 隨機產生一組新解
+        public static void generate(ref int[] s)
         {
-            bool[] vist = new bool[25];
-            for (int i = 0; i < 25; ++i)
+            List<int> indexs = new List<int>();
+            for (int i = 0; i < 25; i++)
             {
-                s[i] = rd();
-                while (vist[s[i]])
-                {
-                    s[i] = rd();
-                }
-                vist[s[i]] = true;
+                indexs.Add(i);
+            }
+            int cnt = 0;
+            while(indexs.Count > 0)
+            {
+                s[cnt] = indexs[rnd.Next(0, indexs.Count - 1)];
+                indexs.RemoveAt(cnt++);
             }
         }
-        public static void generate1(ref int[] s)//隨機交換序列中的一組城市順序
+        #endregion
+        #region 隨機交換序列中的一組城市順序
+        public static void generate1(ref int[] s)
         {
             int ti = rd();
             int tj = ti;
+            //使得 ti 與 tj 不相等
             while (ti == tj)
             {
                 tj = rd();
@@ -57,11 +67,14 @@ namespace 旅遊商問題TSP
             }
             swap(ref s[ti],ref s[tj]);
         }
-        public static void generate2(ref int[] s)//隨機交換序列中的兩組城市順序
+        #endregion
+        #region 隨機選序列中的三個城市互相交換順序
+        public static void generate2(ref int[] s)
         {
             int ti = rd();
             int tj = ti;
             int tk = ti;
+            //使得 ti 與 tj 與 tk 不相等
             while (ti == tj)
             {
                 tj = rd();
@@ -77,7 +90,9 @@ namespace 旅遊商問題TSP
             swap(ref s[ti], ref s[tj]);
             swap(ref s[tk], ref s[tj]);
         }
-        public static void generate3(ref int[] s)//隨機選序列中的三個城市互相交換順序
+        #endregion
+        #region 隨機交換序列中的兩組城市順序
+        public static void generate3(ref int[] s)
         {
             int ti = rd();
             int tj = ti;
@@ -98,7 +113,9 @@ namespace 旅遊商問題TSP
             swap(ref s[ti], ref s[tj]);
             swap(ref s[tm], ref s[tn]);
         }
-        public static void generate0(ref int[] s)//以上三種交換方式等概率選擇
+        #endregion
+        #region 以上三種交換方式等概率選擇
+        public static void generate0(ref int[] s)
         {
             switch (rnd.Next(0, 3))
             {
@@ -113,6 +130,7 @@ namespace 旅遊商問題TSP
                     break;
             }
         }
+        #endregion
         public static void swap<T>(ref T a, ref T b)
         {
             T tmp = a; a = b; b = tmp;
