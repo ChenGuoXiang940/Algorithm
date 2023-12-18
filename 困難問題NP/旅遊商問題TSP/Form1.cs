@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.Reflection.Emit;
 
 namespace 旅遊商問題TSP
 {

@@ -10,44 +10,55 @@
             {
                 heap.Insert(item);
             }
-            Console.WriteLine("後序走訪:" + heap.GetPost());
+            int[] res = num.Select(x => heap.getMax()).ToArray();
+            Console.WriteLine(string.Join("->", res));
             Console.ReadKey();
         }
     }
     public class MaxHeap
     {
-        private string s = "";
         private List<int> col;
         public MaxHeap() => col = new List<int>();
-        private void insertRec(int index)
+        private void InsertRec(int index)
         {
             if (index == 0) return;
-            int parent = (index - 1) >> 1;
+            int parent = (index - 1) / 2;
             if (col[parent] < col[index])
             {
                 col[parent] ^= col[index];
                 col[index] ^= col[parent];
                 col[parent] ^= col[index];
-                insertRec(parent);
+                InsertRec(parent);
             }
         }
-        private void post(int index)
+        private void PercolateDown(int index)
         {
-            if (index >= col.Count) return;
-            post(index * 2 + 1);
-            post(index * 2 + 2);
-            s += $"{col[index]},";
+            int left = (index * 2) + 1;
+            int right = (index * 2) + 2;
+            int largest = index;
+            if (col.Count > left && col[left] > col[largest]) largest = left;
+            if (col.Count > right && col[right] > col[largest]) largest = right;
+            if (col[largest] != col[index])
+            {
+                col[largest]^= col[index];
+                col[index]^= col[largest];
+                col[largest]^= col[index];
+                PercolateDown(largest);
+            }
         }
         public void Insert(int val)
         {
             col.Add(val);
-            insertRec(col.Count - 1);
+            InsertRec(col.Count - 1);
         }
-        public string GetPost()
+        public int getMax()
         {
-            s = "";
-            post(0);
-            return s.TrimEnd(',');
+            if (col.Count == 0) throw new Exception("heap is empty");
+            int max_val = col[0];
+            col[0] = col[col.Count - 1];
+            col.RemoveAt(col.Count - 1);
+            if (col.Count > 1) PercolateDown(0);
+            return max_val;
         }
     }
 }

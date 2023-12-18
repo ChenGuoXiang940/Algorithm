@@ -7,11 +7,12 @@ namespace 最小堆積樹資訊
         static void Main(string[] args)
         {
             /*
-             * 二元搜尋樹(BST):
+             * 二元搜尋樹（BST）:
              * 建立目的:二元搜尋樹是用於維護排序性質。
              * 
-             * 堆積樹Heap(優先級佇列 Priority_Queue ):
-             * 建立目的:用於結構性質而不是排序性質(走訪沒有意義，範例僅用於展示)
+             * 堆積樹 Heap（優先級佇列 Priority_Queue）:
+             * 建立目的:用於結構性質而不是排序性質，走訪沒有意義。
+             * 它允許我們在任何時候添加新的元素，並且能在O(1)的時間內找到（並刪除）最小的元素。
              */
             MinHeap heap = new MinHeap();
             int[] num = { 1, 6, 13, 16, 14, 8, 4, 5, 10 };
@@ -19,13 +20,13 @@ namespace 最小堆積樹資訊
             {
                 heap.Insert(item);
             }
-            Console.WriteLine("後序走訪:" + heap.GetPost());
+            int[] res = num.Select(x => heap.getMin()).ToArray();
+            Console.WriteLine(string.Join("->", res));
             Console.ReadKey();
         }
     }
     class MinHeap
     {
-        private string? s;
         private List<int> heap; 
         public MinHeap() => heap = new List<int>();
         private void InsertRec(int index)
@@ -44,23 +45,37 @@ namespace 最小堆積樹資訊
                 InsertRec(parentIndex);
             }
         }
-        private void Post(int index)
+        private void PercolateDown(int index)
         {
-            if (index >= heap.Count) return;
-            Post(index * 2 + 1);
-            Post(index * 2 + 2);
-            s += heap[index].ToString() + ",";
+            int left = (index * 2) + 1;
+            int right = (index * 2) + 2;
+            int smallest = index;
+            //最小堆的父節點必須小於左子節點
+            if (heap.Count > left && heap[smallest] > heap[left]) smallest = left;
+            //最小堆的父節點必須小於右子節點
+            if (heap.Count > right && heap[smallest] > heap[right]) smallest = right;
+            //如果父節點不是最小的，則交換
+            if (smallest != index)
+            {
+                heap[smallest]^= heap[index];
+                heap[index]^= heap[smallest];
+                heap[smallest]^= heap[index];
+                PercolateDown(smallest);
+            }
         }
         public void Insert(int val)
         {
             heap.Add(val);
             InsertRec(heap.Count - 1);
         }
-        public string GetPost()
+        public int getMin()
         {
-            s = "";
-            Post(0);
-            return s.TrimEnd(',');
+            if (heap.Count == 0) throw new Exception("Heap is empty");
+            int min_val = heap[0];
+            heap[0] = heap[heap.Count - 1];
+            heap.RemoveAt(heap.Count - 1);
+            if (heap.Count > 1) PercolateDown(0);
+            return min_val;
         }
     }
 }
@@ -71,7 +86,7 @@ namespace 最小堆積樹資訊
 //         6   14  13  8
 //        / \ 
 //      16  10
-//索引:0、1、2、3、4、 5、6、 7、 8
-//元素:1、5、4、6、4、13、8、16、10
-//
+//索引對應位置:0、1、2、3、4、 5、6、 7、 8
+//元素    位置:1、5、4、6、4、13、8、16、10
 //後序:1->5->6->16->10->14->4->13->8
+//輸出:1->4->5->6->8->10->13->14->16
