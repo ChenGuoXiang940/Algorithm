@@ -12,15 +12,16 @@ namespace 旅遊商問題TSP
     {
         public static Random rnd = new Random();
         public static int rd() => rnd.Next(0, 25);
-        public static Func<Point, Point, double> GetDistance = (Point p1, Point p2) => Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
+        // 計算兩點之間的距離平方的函數 (委派) # 用於計算能量值 # 不使用Sqrt()可以更加快運算速度
+        public static Func<Point, Point, double> GetDistance = (Point p1, Point p2) => Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2);
         public static double count_energy(ref int[] conf)
         {
             double temp = 0;
             for (int i = 1; i < 25; ++i)
             {
-                temp += GetDistance(f.col[conf[i]], f.col[conf[i - 1]]);
+                temp += GetDistance(f.dot[conf[i]], f.dot[conf[i - 1]]);
             }
-            return temp + GetDistance(f.col[conf[0]], f.col[conf[24]]);
+            return temp + GetDistance(f.dot[conf[0]], f.dot[conf[24]]);
         }
         #region 接受或拒絕新樣本的函數
         // 函數的輸入參數：

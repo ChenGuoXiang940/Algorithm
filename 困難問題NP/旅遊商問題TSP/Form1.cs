@@ -17,7 +17,7 @@ namespace 旅遊商問題TSP
         public static Bitmap bitmap;
         public static Graphics g;
         public static Pen pen = new Pen(Color.Linen, 3);
-        public static Font font = new Font("Default", 9);
+        public static Font font = new Font("Default", 11);
         public static Stopwatch sw = Stopwatch.StartNew();
         public Form1()
         {
@@ -27,25 +27,24 @@ namespace 旅遊商問題TSP
             g.Clear(Color.Black);
             pictureBox1.Image = bitmap;
         }
-        public static List<Point> col = new List<Point>();
+        public static Point[] dot = new Point[25];
         private void button1_Click(object sender, EventArgs e)
         {
-            col.Clear();
             for(int i = 0; i < 25; i++)
             {
                 int x = Data.rnd.Next(15, 485);
                 int y = Data.rnd.Next(15, 485);
                 Point point = new Point(x, y);
                 bool fg = true;
-                foreach (Point it in col)
+                foreach (Point it in dot)
                 {
-                    if (Data.GetDistance(it, point) < 50)
+                    if (Data.GetDistance(it, point) < 250)
                     {
                         fg = false;
                         break;
                     }
                 }
-                if (fg) col.Add(point);
+                if (fg) dot[i] = point;
                 else i--;
             }
             Reset();
@@ -53,10 +52,7 @@ namespace 旅遊商問題TSP
         public void Reset()
         {
             g.Clear(Color.Black);
-            for (int i = 0; i < 25; i++)
-            {
-                g.FillEllipse(Brushes.YellowGreen, col[i].X - 5, col[i].Y - 5, 10, 10);
-            }
+            Array.ForEach(dot, it => g.FillEllipse(Brushes.White, it.X - 5, it.Y - 5, 10, 10));
             pictureBox1.Image = bitmap;
         }
         public static int[] seq;
@@ -68,8 +64,8 @@ namespace 旅遊商問題TSP
             //初始化
             seq = new int[25];
             seq_f = new int[25];
-            double tempterature = 10000;//初始溫度
-            double result = 1E9;        //最短路徑長度
+            double tempterature = 10000;//當前溫度
+            double result = 1E9;        //當前最短路徑長度
             double new_energy = 1, old_energy = 0;
             double[,] distance = new double[25, 25];
             //建立圖
@@ -78,14 +74,13 @@ namespace 旅遊商問題TSP
                 for(int j = 0; j < 25; j++)
                 {
                     //自己到自己不考慮距離(為零)
-                    distance[i, j] = i == j ? 0 : Data.GetDistance(col[i], col[j]);
+                    distance[i, j] = i == j ? 0 : Data.GetDistance(dot[i], dot[j]);
                 }
             }
-            for(int i = 0; i < 25; i++)
-            {
-                //紀錄順序 0~24
+            //紀錄順序 0~24
+            Parallel.For(0, 25, i =>{
                 seq[i] = seq_f[i] = i;
-            }
+            });
             //使用退火蟻演算法進行迭代，直到溫度足夠低或能量變化足夠小
             while (tempterature > 1E-9 && Math.Abs(new_energy - old_energy) > 1E-9)
             {
@@ -122,13 +117,13 @@ namespace 旅遊商問題TSP
                 result = Data.count_energy(ref seq);
             }
             Reset();
-            g.DrawString("25", font, Brushes.BlueViolet, col[seq[0]]);
-            g.DrawLine(pen, col[seq[0]], col[seq[24]]);
-            for (int i = 1; i < 25; i++)
+            g.DrawString("25", font, Brushes.OliveDrab, dot[seq[0]]);
+            g.DrawLine(pen, dot[seq[0]], dot[seq[24]]);
+            Array.ForEach(Enumerable.Range(1, 24).ToArray(), i =>
             {
-                g.DrawLine(pen, col[seq[i]], col[seq[i - 1]]);
-                g.DrawString($"{i}", font, Brushes.BlueViolet, col[seq[i]]);
-            }
+                g.DrawLine(pen, dot[seq[i]], dot[seq[i - 1]]);
+                g.DrawString($"{i}", font, Brushes.OliveDrab, dot[seq[i]]);
+            });
             pictureBox1.Image = bitmap;
             sw.Stop();
             MessageBox.Show($"時間:{Math.Round(sw.Elapsed.TotalSeconds, 3)}", "資訊", MessageBoxButtons.OK, MessageBoxIcon.Information);
