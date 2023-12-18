@@ -47,7 +47,7 @@ namespace 旅遊商問題TSP
             while(indexs.Count > 0)
             {
                 s[cnt] = indexs[rnd.Next(0, indexs.Count - 1)];
-                indexs.RemoveAt(cnt++);
+                indexs.Remove(s[cnt++]);
             }
         }
         #endregion
