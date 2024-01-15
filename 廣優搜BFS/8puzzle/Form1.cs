@@ -5,7 +5,6 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,7 +40,7 @@ namespace _8puzzle
             Array.ForEach(t1, item => item.Enabled = fg);
             Array.ForEach(t2, item => item.Enabled = fg);
         }
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
             enable(false);
             Stopwatch sw = Stopwatch.StartNew();
@@ -95,12 +94,10 @@ namespace _8puzzle
             }
             string record = (stack.Count - 1).ToString();
             label3.Text = $"{record}/{record}";
-            Thread.Sleep(500);
-            Application.DoEvents();
+            await Task.Delay(500);
             while (true)
             {
-                Thread.Sleep(500);
-                Application.DoEvents();
+                await Task.Delay(500);
                 if (stack.Count == 0) break;
                 double current = stack.Pop().val;
                 for(int i = 0; i < 9; i++)
