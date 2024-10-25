@@ -15,7 +15,7 @@ namespace 旅遊商問題TSP
     {
         public static Bitmap bitmap;
         public static Graphics g;
-        public static Pen pen = new Pen(Color.Linen, 3);
+        public static Pen pen = new Pen(Color.Linen, 1);
         public static Font font = new Font("Default", 11);
         public static Stopwatch sw = Stopwatch.StartNew();
         public Form1()
@@ -51,8 +51,9 @@ namespace 旅遊商問題TSP
         public void Reset()
         {
             g.Clear(Color.Black);
-            Array.ForEach(dot, it => g.FillEllipse(Brushes.White, it.X - 5, it.Y - 5, 10, 10));
+            Array.ForEach(dot, it => g.FillEllipse(Brushes.Aqua, it.X - 5, it.Y - 5, 10, 10));
             pictureBox1.Image = bitmap;
+            label1.Text = "";
         }
         public static int[] seq;
         public static int[] seq_f;
@@ -116,16 +117,16 @@ namespace 旅遊商問題TSP
                 result = Data.count_energy(ref seq);
             }
             Reset();
-            g.DrawString("25", font, Brushes.OliveDrab, dot[seq[0]]);
+            g.DrawString("25", font, Brushes.Orange, dot[seq[0]]);
             g.DrawLine(pen, dot[seq[0]], dot[seq[24]]);
             Array.ForEach(Enumerable.Range(1, 24).ToArray(), i =>
             {
                 g.DrawLine(pen, dot[seq[i]], dot[seq[i - 1]]);
-                g.DrawString($"{i}", font, Brushes.OliveDrab, dot[seq[i]]);
+                g.DrawString($"{i}", font, Brushes.Orange, dot[seq[i]]);
             });
             pictureBox1.Image = bitmap;
             sw.Stop();
-            MessageBox.Show($"時間:{Math.Round(sw.Elapsed.TotalSeconds, 3)}", "資訊", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            label1.Text = $"時間:{Math.Round(sw.Elapsed.TotalSeconds, 3)}";
         }
 
         private void button3_Click(object sender, EventArgs e)
