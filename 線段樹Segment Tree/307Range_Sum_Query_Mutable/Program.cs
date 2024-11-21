@@ -2,27 +2,28 @@
 
 namespace _307Range_Sum_Query_Mutable
 {
-    public class NumArray
+    public class SegmentTree
     {
         private int len;
-        private int[] seg, arr;
-        private void push(int id,int left,int right)
+        private int[] seg;
+        private void buildTree(ref int[] arr,int id,int left,int right)
         {
-            if (left == right)
+            if (left == right) // 當前區間為單一元素
             {
                 seg[id] = arr[left];
                 return;
             }
             int mid = (left + right) / 2;
-            push(id * 2 + 1, left, mid);
-            push(id * 2 + 2, mid + 1, right);
+            buildTree(ref arr, id * 2 + 1, left, mid);// 正確的區間分割應該包含中點本身 right = mid
+            buildTree(ref arr, id * 2 + 2, mid + 1, right);
             seg[id] = seg[id * 2 + 1] + seg[id * 2 + 2];
         }
+        // 根據目標索引位置遞歸地更新樹的節點
         private void update(int id,int left,int right,int pos,int val)
         {
             if (left == right)
             {
-                seg[id] = val;//將 arr[left] 改 val
+                seg[id] = val;
                 return;
             }
             int mid = (left + right) / 2;
@@ -41,26 +42,31 @@ namespace _307Range_Sum_Query_Mutable
             res += query(id * 2 + 2, mid + 1, right, query_left, query_right);
             return res;
         }
-        public NumArray(int[] nums)
+        public SegmentTree(int[] nums)
         {
             len = nums.Length;
             seg = new int[len << 2];
-            arr = nums;
-            push(0, 0, len - 1);
+            buildTree(ref nums,0, 0, len - 1);
         }
+        // 通過 update 方法來更新線段樹
         public void Update(int index, int val)
         {
             update(0, 0, len - 1, index, val);
-            arr[index] = val;
         }
         public int SumRange(int left, int right) => query(0, 0, len - 1, left, right);
     }
+    /*
+     * id:TreeIndex
+     * 樹根的 TreeIndex = 0
+     * 左子樹的 TreeIndex = 2 × TreeIndex + 1
+     * 右子樹的 TreeIndex = 2 × TreeIndex + 2
+     */
     internal class Program
     {
         static void Main(string[] args)
         {
-            int[] nums = new int[] { 1, 3, 5 };
-            NumArray obj = new NumArray(nums);
+            int[] nums = new int[] { 1, 3, 5, 7, 9 };
+            SegmentTree obj = new SegmentTree(nums);
             Console.WriteLine(obj.SumRange(0, 2)); // return 1 + 3 + 5 = 9
             obj.Update(1, 2);   // nums = [1, 2, 5]
             Console.WriteLine(obj.SumRange(0, 2)); // return 1 + 2 + 5 = 8

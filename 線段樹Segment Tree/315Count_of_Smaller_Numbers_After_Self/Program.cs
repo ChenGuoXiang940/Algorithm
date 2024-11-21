@@ -2,20 +2,18 @@
 
 namespace _315Count_of_Smaller_Numbers_After_Self
 {
-    class Seg
+    class SegmentTree
     {
-        private int len;
-        public int[] arr, count;
-        private List<int> orgindex;
-        private void build(int left,int right)
+        public int[] count;
+        private void buildTree(ref int[] arr, ref List<int> orgindex, int left, int right)
         {
-            if (left>= right) return;
-            int mid = (left + right) >> 1;
-            build(left, mid);
-            build(mid + 1, right);
-            merge(left, mid, right);
+            if (left >= right) return;
+            int mid = (left + right) / 2;
+            buildTree(ref arr,ref orgindex,left, mid);
+            buildTree(ref arr,ref orgindex,mid + 1, right);
+            merge(ref arr,ref orgindex, left, mid, right);
         }
-        private void merge(int left,int mid,int right)
+        private void merge(ref int[]arr, ref List<int> orgindex, int left,int mid,int right)
         {
             int ls = mid - left + 1;
             int rs = right - mid;
@@ -52,14 +50,11 @@ namespace _315Count_of_Smaller_Numbers_After_Self
                 k++;
             }
         }
-        public Seg(int[]nums)
+        public SegmentTree(int[]nums)
         {
-            len = nums.Length;
-            count = new int[len];
-            arr = nums;
-            int i = 0;
-            orgindex = new int[len].Select(item => i++).ToList();
-            build(0, len - 1);
+            count = new int[nums.Length];
+            List<int> orgindex = Enumerable.Range(0, nums.Length).ToList();
+            buildTree(ref nums, ref orgindex, 0, nums.Length - 1);
         }
     }
     internal class Program
@@ -67,9 +62,9 @@ namespace _315Count_of_Smaller_Numbers_After_Self
         static void Main(string[] args)
         {
             int[] nums = new int[] { 5, 2, 6, 1 };
-            Seg seg = new Seg(nums);
+            SegmentTree seg = new SegmentTree(nums);
+            //在數組中，找出每個數字後面小於它的數字的個數
             Console.WriteLine(string.Join(" ", seg.count));
-            // orgindex : 3 1 0 2 表示 nums 位置的，比較值的大小降冪排序
             Console.ReadKey();
         }
     }
