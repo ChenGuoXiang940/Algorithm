@@ -44,7 +44,7 @@
             Infix(root.right);
         }
         public BST() { }
-        public void Insert(int val)=> node = InsertRec(node, val);
+        public void Insert(int val) => node = InsertRec(node, val);
         public string GetInfix()
         {
             s = "";

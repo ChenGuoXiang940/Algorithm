@@ -25,9 +25,7 @@
             int parent = (index - 1) / 2;
             if (col[parent] < col[index])
             {
-                col[parent] ^= col[index];
-                col[index] ^= col[parent];
-                col[parent] ^= col[index];
+                Swap(parent, index);
                 InsertRec(parent);
             }
         }
@@ -40,9 +38,7 @@
             if (col.Count > right && col[right] > col[largest]) largest = right;
             if (col[largest] != col[index])
             {
-                col[largest]^= col[index];
-                col[index]^= col[largest];
-                col[largest]^= col[index];
+                Swap(largest, index);
                 PercolateDown(largest);
             }
         }
@@ -59,6 +55,12 @@
             col.RemoveAt(col.Count - 1);
             if (col.Count > 1) PercolateDown(0);
             return max_val;
+        }
+        private void Swap(int a,int b)
+        {
+            int tmp = col[a];
+            col[a] = col[b];
+            col[b] = tmp;
         }
     }
 }
