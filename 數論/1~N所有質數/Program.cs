@@ -4,22 +4,24 @@
     {
         static void Main(string[] args)
         {
-            bool[] isprime = new bool[(int)1E2].Select(x => true).ToArray();
-            for(int i = 2; i < 1E2; i++)
+            int n = 100;
+            bool[] isprime = new bool[n].Select(x => true).ToArray();
+            for(int i = 2; i < n; i++)
             {
                 if (isprime[i])
                 {
-                    for(int j = i + i; j < 1E2; j += i)
+                    for(int j = i + i; j < n; j += i)
                     {
                         isprime[j] = false;
                     }
                 }
             }
             isprime[0] = isprime[1] = false;
-            for(int i = 2; i < 1E2; i++)
+            for(int i = 2; i < n; i++)
             {
                 if (isprime[i]) Console.WriteLine($"{i}");
             }
         }
     }
 }
+/*  埃拉托色尼篩法，找出小於 100 的所有質數*/
